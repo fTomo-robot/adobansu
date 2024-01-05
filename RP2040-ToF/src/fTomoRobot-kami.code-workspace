@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../GitHub/adobansu/fTomoRobot-kami"
+		},
+		{
+			"name": "RP2040-ToF",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
