@@ -9,14 +9,11 @@ s16 Position[2];
 u16 Speed[2];
 byte ACC[2];
 
-#include <Adafruit_NeoPixel.h>
-Adafruit_NeoPixel rawpixel(16, 7, NEO_GRB + NEO_KHZ800);
+// SerialUSB  Serial;
+// SerialUART Serial2;
 
-#include "./fled/fled.h"
-FLED led(&rawpixel, 0, 15);
-
-
-void setup(){
+void setup()
+{
   Serial2.begin(1000000);
   Serial2.setTX(8);
   Serial2.setRX(9);
@@ -28,40 +25,19 @@ void setup(){
   Speed[1] = 3400;
   ACC[0] = 50;
   ACC[1] = 50;
-
-  led.init();
-  delay(500);
-  // for(int i=100; i<1700; i++){
-  //   led.clear();
-  //   led.set_width_hsv(15.0,i/100.0,150,255,250);
-  //   led.show();
-  //   delay(1);
-  // }
-  for(int i=10; i<1750; i++){
-    led.clear();
-    led.set_width_hsv(15.0,i/100.0,150,250,i/10.0);
-    led.show();
-    delay(1);
-  }
 }
 
 void loop()
 {
-  led.clear();
-  led.set_color_hsv_all(100,230,50);
-  led.show();
+  Position[0] = 4095;
+  Position[1] = 4095;
+  st.SyncWritePosEx(ID, 2, Position, Speed, ACC);//舵机(ID1/ID2)以最高速度V=3400步/秒，加速度A=50(50*100步/秒^2)，运行至P1=4095位置
+  delay(1884);//((P1-P0)/V)*1000+(V/(A*100))*1000
 
-  delay(1000);
-
-  // Position[0] = 4095;
-  // Position[1] = 4095;
-  // st.SyncWritePosEx(ID, 2, Position, Speed, ACC);//舵机(ID1/ID2)以最高速度V=3400步/秒，加速度A=50(50*100步/秒^2)，运行至P1=4095位置
-  // delay(1884);//((P1-P0)/V)*1000+(V/(A*100))*1000
-
-  // Position[0] = 0;
-  // Position[1] = 0;
-  // st.SyncWritePosEx(ID, 2, Position, Speed, ACC);//舵机(ID1/ID2)以最高速度V=3400步/秒，加速度A=50(50*100步/秒^2)，运行至P0=0位置
-  // delay(1884);//((P1-P0)/V)*1000+(V/(A*100))*1000
+  Position[0] = 0;
+  Position[1] = 0;
+  st.SyncWritePosEx(ID, 2, Position, Speed, ACC);//舵机(ID1/ID2)以最高速度V=3400步/秒，加速度A=50(50*100步/秒^2)，运行至P0=0位置
+  delay(1884);//((P1-P0)/V)*1000+(V/(A*100))*1000
 }
 
 
