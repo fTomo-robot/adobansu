@@ -65,7 +65,6 @@ void setup() {
  Serial.begin(9600);
  Serial1.begin(9600);
  Serial.println("MTOF171000C0_I2C");
- pinMode(2, OUTPUT);
 }
 
 void loop() {
@@ -77,7 +76,7 @@ void loop() {
  Serial.print("ToF_0 = ");
  Serial.print(val_0);
  Serial.println(" mm");
- delay(50);
+ delay(5);
 }
 {  
  ChangeChannel(1);
@@ -86,7 +85,7 @@ void loop() {
  Serial.print("ToF_1 = ");
  Serial.print(val_1);
  Serial.println(" mm");
-  delay(50);
+  delay(5);
 }
 {  
  ChangeChannel(2);
@@ -95,7 +94,7 @@ void loop() {
  Serial.print("ToF_2 = ");
  Serial.print(val_2);
  Serial.println(" mm");
-  delay(50);
+  delay(5);
 }
 {  
  ChangeChannel(3);
@@ -104,7 +103,7 @@ void loop() {
  Serial.print("ToF_3 = ");
  Serial.print(val_3);
  Serial.println(" mm");
-  delay(50);
+  delay(5);
 }
   //前センサ比較
 

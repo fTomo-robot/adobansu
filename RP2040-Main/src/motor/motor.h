@@ -1,26 +1,26 @@
+// made by Tomoshibi @Jun_robot
+#ifndef _H_MOTOR_
+#define _H_MOTOR_
 
+#include <Arduino.h>
 #include <SCServo.h>
+#include <HardwareSerial.h>
 
-SMS_STS st;
+class MOTOR{
+    private:
+        HardwareSerial* SER;
+        SMS_STS* ST;
+        long timer;
+    
+    public:
+        MOTOR(HardwareSerial* ptr_serial, SMS_STS* ptr_st);
 
-void setup()
-{
-  Serial2.begin(1000000);
-  st.pSerial = &Serial2;
-  delay(1000);
-  st.unLockEprom(1);
-  st.WheelMode(1);//恒速模式
-  st.LockEprom(1);
-}
+        void init();
+        void stop(void);
 
-void loop()
-{
-  st.WriteSpe(1, 3400, 50);//舵机(ID1)以最高速度V=3400步/秒，加速度A=50(50*100步/秒^2)，旋转
-  delay(4000);
-  st.WriteSpe(1, 0, 50);//舵机(ID1)以加速度A=50(50*100步/秒^2)，停止旋转(V=0)
-  delay(2000);
-  st.WriteSpe(1, -3400, 50);//舵机(ID1)以最高速度V=-3400步/秒，加速度A=50(50*100步/秒^2)，反向旋转
-  delay(4000);
-  st.WriteSpe(1, 0, 50);//舵机(ID1)以加速度A=50(50*100步/秒^2)，停止旋转(V=0)
-  delay(2000);
-}
+        void forward(int speed, int accer);
+        void left(int speed, int accer);
+        void right(int speed, int accer);
+};
+
+#endif
